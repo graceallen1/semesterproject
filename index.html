@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sips & Bites of Fort Worth</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #faf7f2;
+      color: #333;
+    }
+
+    header {
+      background-color: #6f4e37;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('download.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #6f4e37;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      color: #6f4e37;
+    }
+
+    .card-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      flex: 1 1 250px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .carousel {
+      margin-top: 20px;
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      height: 300px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      background-color: #fff;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      filter: contrast(1.08) saturate(1.06);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #6f4e37;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sips & Bites of Fort Worth</h1>
+    <p>A curated guide to all things Coffee and Food in Fort Worth. Reviews and rankings based off of taste, atmosphere and affordability!</p>
+  </header>
+
+  <nav>
+    <a href="about.html">About</a>
+    <a href="#coffee">Coffee Spots</a>
+    <a href="#food">Fort Worth Eats</a>
+    <a href="localsguide.html">Locals Guide</a>
+    <a href="#coffee-map">Coffee Map</a>
+    <a href="#food-map">Food Map</a>
+  </nav>
+
+  <main>
+    <section id="about">
+      <h2>Purpose</h2>
+      <p>
+        Welcome to my Fort Worth guide! This project highlights some of my favorite
+        local coffee shops, restaurants, and places to visit around the city.
+        My goal is to create one big review and travel guide that feels helpful,
+        personal, and easy to explore.
+      </p>
+    </section>
+
+    <section id="coffee">
+      <h2>Coffee Spots</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>Favorite Coffee Shop</h3>
+          <p>Add your first coffee shop review here.</p>
+        </div>
+        <div class="card">
+          <h3>Best Study Spot</h3>
+          <p>Add another review here.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="food">
+      <h2>Fort Worth Eats</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>Best Casual Bite</h3>
+          <p>Add your restaurant review here.</p>
+        </div>
+        <div class="card">
+          <h3>Best Dinner Spot</h3>
+          <p>Add another restaurant review here.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="travel">
+      <h2>Locals Guide</h2>
+    </section>
+
+    <section id="coffee-map">
+      <h2>Coffee Map</h2>
+      <div class="card">
+        <p>Mapbox coffee map will be added here.</p>
+      </div>
+    </section>
+
+    <section id="food-map">
+      <h2>Food Map</h2>
+      <div class="card">
+        <p>Mapbox food map will be added here.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Created by Grace Allen</p>
+  </footer>
+
+</body>
+</html>

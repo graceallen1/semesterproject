@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Sips & Bites of Fort Worth</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #faf7f2;
+      color: #333;
+    }
+
+    header {
+      background-color: #6f4e37;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #6f4e37;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      color: #6f4e37;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .carousel {
+      margin-top: 20px;
+      position: relative;
+      width: 100%;
+      max-width: none;
+      height: 320px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      background-color: #fff;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #6f4e37;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sips & Bites of Fort Worth</h1>
+    <p>About This Project</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#coffee">Coffee Spots</a>
+    <a href="index.html#food">Fort Worth Eats</a>
+    <a href="index.html#travel">Locals Guide</a>
+    <a href="index.html#coffee-map">Coffee Map</a>
+    <a href="index.html#food-map">Food Map</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Purpose</h2>
+      <div class="card">
+        <p>
+          Welcome to my Fort Worth guide! This project highlights some of my favorite
+          local coffee shops, restaurants, and places to visit around the city.
+          My goal is to create one big review and travel guide that feels helpful,
+          personal, and easy to explore. I want to give honest reviews and
+          suggestions that are based off of taste, atmosphere and affordability!
+          I hope you enjoy my guide to all things food and drink in fort worth!!
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>About Me</h2>
+      <div class="card">
+        <p>
+          I am a 22 year old senior at TCU that has tried several amazing spots over the past four years across all parts of Fort Worth. The reviews will include not only my personal favorites but includes the results of a survey given out to my TCU friends and peers. I can't wait to share my personal go-to spots, my friends favorites and all my visitors over the past few year's top picks!
+        </p>
+      </div>
+      <div class="carousel" id="about-carousel">
+        <div class="carousel-slide active">
+          <img src="Grace.JPEG" alt="Grace" />
+        </div>
+        <div class="carousel-slide">
+          <img src="G.jpeg" alt="G" />
+        </div>
+        <div class="carousel-slide">
+          <img src="R.JPG" alt="R" />
+        </div>
+        <div class="carousel-slide">
+          <img src="A.jpeg" alt="A" />
+        </div>
+        <div class="carousel-slide">
+          <img src="C.jpeg" alt="C" />
+        </div>
+        <div class="carousel-slide">
+          <img src="E.jpeg" alt="E" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Created by Grace Allen</p>
+  </footer>
+
+  <script>
+    const aboutCarousel = document.getElementById('about-carousel');
+    const aboutSlides = aboutCarousel.querySelectorAll('.carousel-slide');
+    let currentAboutSlide = 0;
+
+    setInterval(() => {
+      aboutSlides[currentAboutSlide].classList.remove('active');
+      currentAboutSlide = (currentAboutSlide + 1) % aboutSlides.length;
+      aboutSlides[currentAboutSlide].classList.add('active');
+    }, 3000);
+  </script>
+
+</body>
+</html>
