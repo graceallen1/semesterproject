@@ -15,7 +15,7 @@
 
     header {
       background-color: #6f4e37;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('download.jpg');
+      background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('skyline.jpg');
       background-size: cover;
       background-position: center;
       color: white;
@@ -64,6 +64,23 @@
       padding: 20px;
       flex: 1 1 250px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .photo-placeholder {
+      margin-top: 16px;
+      width: 100%;
+      height: 220px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #fff;
+    }
+
+    .photo-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .carousel {
@@ -118,7 +135,7 @@
 
   <nav>
     <a href="about.html">About</a>
-    <a href="#coffee">Coffee Spots</a>
+    <a href="./coffeespots.html">Coffee Spots</a>
     <a href="#food">Fort Worth Eats</a>
     <a href="localsguide.html">Locals Guide</a>
     <a href="#coffee-map">Coffee Map</a>
@@ -141,11 +158,11 @@
       <div class="card-container">
         <div class="card">
           <h3>Favorite Coffee Shop</h3>
-          <p>Add your first coffee shop review here.</p>
-        </div>
-        <div class="card">
-          <h3>Best Study Spot</h3>
-          <p>Add another review here.</p>
+          <p>Carters coffee is the overall champ!</p>
+          <p>My personal favorites: Iced Cinnamon Latte with Honey, Iced Blueberry Latte (Seasonal), Arnold Palmer (for my non-coffee drinkers). And if you're looking for a good bite to pair with your drink I reccomend the Breakfast Burrito!</p>
+          <div class="photo-placeholder">
+            <img src="download-12.jpg" alt="Carters Coffee" />
+          </div>
         </div>
       </div>
     </section>
@@ -154,12 +171,18 @@
       <h2>Fort Worth Eats</h2>
       <div class="card-container">
         <div class="card">
-          <h3>Best Casual Bite</h3>
-          <p>Add your restaurant review here.</p>
-        </div>
-        <div class="card">
-          <h3>Best Dinner Spot</h3>
-          <p>Add another restaurant review here.</p>
+          <h3>Top 3 Favorite Resteraunts</h3>
+          <div class="carousel" id="food-carousel">
+            <div class="carousel-slide active">
+              <img src="woodshed.jpg" alt="Woodshed" />
+            </div>
+            <div class="carousel-slide">
+              <img src="lucilles.jpg" alt="Lucilles" />
+            </div>
+            <div class="carousel-slide">
+              <img src="paloma.jpg" alt="Paloma" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -186,6 +209,18 @@
   <footer>
     <p>Created by Grace Allen</p>
   </footer>
+
+  <script>
+    const foodCarousel = document.getElementById('food-carousel');
+    const foodSlides = foodCarousel.querySelectorAll('.carousel-slide');
+    let currentFoodSlide = 0;
+
+    setInterval(() => {
+      foodSlides[currentFoodSlide].classList.remove('active');
+      currentFoodSlide = (currentFoodSlide + 1) % foodSlides.length;
+      foodSlides[currentFoodSlide].classList.add('active');
+    }, 3000);
+  </script>
 
 </body>
 </html>
