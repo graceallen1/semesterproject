@@ -5,59 +5,212 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Locals Guide | Sips & Bites of Fort Worth</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #faf7f2;
-      color: #333;
+      background: linear-gradient(135deg, #faf7f2 0%, #fff5e6 100%);
+      color: #5a3a28;
     }
 
     header {
-      background-color: #6f4e37;
-      color: white;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 201, 154, 0.55), transparent 35%),
+        radial-gradient(circle at 80% 25%, rgba(255, 170, 165, 0.45), transparent 30%),
+        radial-gradient(circle at 70% 80%, rgba(255, 228, 184, 0.5), transparent 38%),
+        linear-gradient(135deg, #fff7ef 0%, #ffe9dc 45%, #ffe1cf 100%);
+      color: #5a3a28;
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 20px;
+      border-bottom: 3px solid #ead9cd;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      margin: 10px 0 0 0;
+      font-size: 1.2em;
+      opacity: 0.9;
     }
 
     nav {
       background-color: #fff;
-      padding: 15px;
+      padding: 20px 15px;
       text-align: center;
       border-bottom: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     nav a {
-      margin: 0 15px;
+      margin: 0 18px;
       text-decoration: none;
-      color: #6f4e37;
-      font-weight: bold;
+      color: #5a3a28;
+      font-weight: 600;
+      font-size: 0.95em;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    nav a:hover {
+      background-color: #ffe9dc;
+      color: #3d2416;
+      transform: translateY(-2px);
     }
 
     main {
-      max-width: 1000px;
-      margin: 40px auto;
+      max-width: 1200px;
+      margin: 60px auto;
       padding: 0 20px;
     }
 
-    h2 {
-      color: #6f4e37;
+    main h2 {
+      color: #5a3a28;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      padding-bottom: 20px;
     }
 
-    .card {
+    main h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffaaa5, #ffcb9a);
+      border-radius: 2px;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-top: 30px;
+    }
+
+    .blog-card {
       background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      border: none;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 4px 15px rgba(90, 58, 40, 0.08);
+      min-height: 320px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgba(90, 58, 40, 0.15);
+      border-left: 5px solid #ffaaa5;
+    }
+
+    .blog-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffaaa5, #ffcb9a, #ffe4b8, #ffaaa5);
+      background-size: 200% 100%;
+      animation: slideGradient 3s ease infinite;
+    }
+
+    @keyframes slideGradient {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+    }
+
+    .blog-card h3 {
+      margin: 10px 0 5px 0;
+      color: #5a3a28;
+      font-size: 1.5em;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .blog-author {
+      font-style: italic;
+      color: #9b7860;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+
+    .blog-content {
+      color: #5a3a28;
+      line-height: 1.75;
+      font-size: 0.95em;
+      word-spacing: 0.5px;
+    }
+
+    .meal-section {
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #f0e6db;
+    }
+
+    .meal-section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .meal-label {
+      display: inline-block;
+      background: linear-gradient(135deg, #ffe9dc, #ffe4b8);
+      color: #5a3a28;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 900px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      header h1 {
+        font-size: 2em;
+      }
+
+      main h2 {
+        font-size: 1.6em;
+      }
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      background-color: #6f4e37;
-      color: white;
-      margin-top: 40px;
+      padding: 30px 20px;
+      background-color: #fff;
+      color: #5a3a28;
+      margin-top: 60px;
+      border-top: 2px solid #ead9cd;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -71,17 +224,201 @@
   <nav>
     <a href="about.html">About</a>
     <a href="coffeespots.html">Coffee Spots</a>
-    <a href="index.html#food">Fort Worth Eats</a>
+    <a href="fortwortheats.html">Fort Worth Eats</a>
     <a href="localsguide.html">Locals Guide</a>
-    <a href="index.html#coffee-map">Coffee Map</a>
-    <a href="index.html#food-map">Food Map</a>
+    <a href="research.html">Research</a>
+    <a href="coffeemap.html">Coffee Map</a>
+    <a href="foodmap.html">Food Map</a>
   </nav>
 
   <main>
     <section>
-      <h2>Locals Guide</h2>
-      <div class="card">
-        <p>Add your local favorites, neighborhood highlights, and must-visit Fort Worth spots here.</p>
+      <h2>Locals Guide - TCU Students Share Their Favorites</h2>
+      
+      <div class="blog-grid">
+        <div class="blog-card">
+          <h3>☕ Ashley's Picks</h3>
+          <div class="blog-author">By Ashley</div>
+          <div class="blog-content">
+            <div class="meal-section">
+              <span class="meal-label">Coffee</span>
+              <p>Match Point Coffee a cute, low-key place away from campus that's perfect when you want a calmer vibe.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Brunch</span>
+              <p>Press Cafe thanks to its indoor/outdoor seating and wide menu.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Lunch</span>
+              <p>Local Foods quick, healthy, and still really good.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Dinner</span>
+              <p>Paloma Suerte for some of the best Mexican food in Fort Worth and a fun atmosphere. Top recommendation for visitors.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <h3>🌟 Keira's Picks</h3>
+          <div class="blog-author">By Keira</div>
+          <div class="blog-content">
+            <div class="meal-section">
+              <span class="meal-label">Coffee</span>
+              <p>Carter's Coffee quick, drive-thru, and a solid local spot.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Brunch</span>
+              <p>Press Cafe for classic, reliable options.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Lunch</span>
+              <p>Eatzi's Market & Bakery for easy, grab-and-go options.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Dinner</span>
+              <p>Gusto's Burger casual, fast, and really good. Finds spots on TikTok & Instagram. Recommends Joe T. Garcia's or Bowie House for visitors.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <h3>🍴 Julia's Picks</h3>
+          <div class="blog-author">By Julia</div>
+          <div class="blog-content">
+            <div class="meal-section">
+              <span class="meal-label">Coffee</span>
+              <p>Skips the coffee but focuses on reliable food choices.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Brunch</span>
+              <p>Press Cafe for its location and consistently good menu.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Lunch</span>
+              <p>Eatzi's Market & Bakery for quick and diverse options.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Dinner</span>
+              <p>Paloma Suerte for food, atmosphere, and Stockyards location. Recommends Bricks and Horses and Hotel Drover for visitors.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <h3>🎨 Grace's Picks</h3>
+          <div class="blog-author">By Grace</div>
+          <div class="blog-content">
+            <div class="meal-section">
+              <span class="meal-label">Coffee</span>
+              <p>Ampersand Coffee for its matcha, lattes, and close to campus location.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Brunch</span>
+              <p>Press Cafe for the atmosphere and menu.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Lunch</span>
+              <p>Eatzi's Market & Bakery for quick, grab and go options.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Dinner</span>
+              <p>Hudson House for the food and overall vibe. Also recommends Quince Riverside and Press Cafe for visitors.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <h3>☕ Emma's Picks</h3>
+          <div class="blog-author">By Emma</div>
+          <div class="blog-content">
+            <div class="meal-section">
+              <span class="meal-label">Coffee</span>
+              <p>Sons of Liberty Coffee for its cold brew.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Brunch</span>
+              <p>Poop Deck.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Lunch</span>
+              <p>Heim Barbecue for her favorite BBQ in Fort Worth.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Dinner</span>
+              <p>Hatsuyaki Hand Roll Bar for fresh sushi. Recommends Cane Rosso for visitors.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <h3>🍵 Mary Kate's Picks</h3>
+          <div class="blog-author">By Mary Kate</div>
+          <div class="blog-content">
+            <div class="meal-section">
+              <span class="meal-label">Coffee</span>
+              <p>Mamaka Bowls.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Brunch</span>
+              <p>Hudson House for the food and atmosphere.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Lunch</span>
+              <p>Eatzi's Market & Bakery for all the options.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Dinner</span>
+              <p>Woodshed Smokehouse for live music and drinks. Recommends Maria's Mexican Kitchen, Quince Riverside, and Pacific Table for visitors.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <h3>🎯 Jordan's Picks</h3>
+          <div class="blog-author">By Jordan</div>
+          <div class="blog-content">
+            <div class="meal-section">
+              <span class="meal-label">Coffee</span>
+              <p>Townes Coffee.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Brunch</span>
+              <p>Press Cafe.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Lunch</span>
+              <p>Eatzi's Market & Bakery.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Dinner</span>
+              <p>Hudson House go-to spots for reliable food and good atmosphere. Next to try: B&B Butchers & Restaurant.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <h3>🏠 Jake's Picks</h3>
+          <div class="blog-author">By Jake</div>
+          <div class="blog-content">
+            <div class="meal-section">
+              <span class="meal-label">Coffee</span>
+              <p>Makes it at home, occasionally grabs Starbucks.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Brunch</span>
+              <p>Pie Tap Pizza Workshop + Bar for its breakfast sandwich.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Lunch</span>
+              <p>Heim Barbecue.</p>
+            </div>
+            <div class="meal-section">
+              <span class="meal-label">Dinner</span>
+              <p>Easy go-to spots: Chipotle Mexican Grill, CAVA, or Blaze Pizza.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>

@@ -5,66 +5,227 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coffee Spots | Sips & Bites of Fort Worth</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #faf7f2;
-      color: #333;
+      background: linear-gradient(135deg, #faf7f2 0%, #fff5e6 100%);
+      color: #5a3a28;
     }
 
     header {
-      background-color: #6f4e37;
-      color: white;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 201, 154, 0.55), transparent 35%),
+        radial-gradient(circle at 80% 25%, rgba(255, 170, 165, 0.45), transparent 30%),
+        radial-gradient(circle at 70% 80%, rgba(255, 228, 184, 0.5), transparent 38%),
+        linear-gradient(135deg, #fff7ef 0%, #ffe9dc 45%, #ffe1cf 100%);
+      color: #5a3a28;
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 20px;
+      border-bottom: 3px solid #ead9cd;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      margin: 10px 0 0 0;
+      font-size: 1.2em;
+      opacity: 0.9;
     }
 
     nav {
       background-color: #fff;
-      padding: 15px;
+      padding: 20px 15px;
       text-align: center;
       border-bottom: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     nav a {
-      margin: 0 15px;
+      margin: 0 18px;
       text-decoration: none;
-      color: #6f4e37;
-      font-weight: bold;
+      color: #5a3a28;
+      font-weight: 600;
+      font-size: 0.95em;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    nav a:hover {
+      background-color: #ffe9dc;
+      color: #3d2416;
+      transform: translateY(-2px);
     }
 
     main {
-      max-width: 1000px;
-      margin: 40px auto;
+      max-width: 1200px;
+      margin: 60px auto;
       padding: 0 20px;
     }
 
     h2 {
-      color: #6f4e37;
+      color: #5a3a28;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffaaa5, #ffcb9a);
+      border-radius: 2px;
+    }
+
+    .welcome-card {
+      background-color: white;
+      border: none;
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 4px 15px rgba(90, 58, 40, 0.08);
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, #fffbf7 0%, #fff9f1 100%);
+      transition: all 0.3s ease;
+    }
+
+    .welcome-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(90, 58, 40, 0.12);
+    }
+
+    .welcome-card h3 {
+      color: #5a3a28;
+      font-size: 1.8em;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .welcome-card p {
+      line-height: 1.8;
+      font-size: 0.95em;
+      word-spacing: 0.5px;
     }
 
     .card-container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
     }
 
     .card {
       background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px;
-      flex: 1 1 250px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      border: none;
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 4px 15px rgba(90, 58, 40, 0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgba(90, 58, 40, 0.15);
+      border-left: 5px solid #ffaaa5;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffaaa5, #ffcb9a, #ffe4b8, #ffaaa5);
+      background-size: 200% 100%;
+      animation: slideGradient 3s ease infinite;
+    }
+
+    @keyframes slideGradient {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+    }
+
+    .card h3 {
+      color: #5a3a28;
+      font-size: 1.6em;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .card p {
+      color: #5a3a28;
+      line-height: 1.75;
+      font-size: 0.95em;
+      word-spacing: 0.5px;
+      margin: 16px 0;
+    }
+
+    .card p:first-of-type {
+      font-weight: 600;
+      color: #3d2416;
+      font-size: 1em;
+      background: linear-gradient(135deg, #ffe9dc, #ffe4b8);
+      padding: 12px 16px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, rgba(255, 170, 165, 0.15), rgba(255, 228, 184, 0.15));
+      padding: 16px;
+      border-left: 4px solid #ffaaa5;
+      border-radius: 6px;
+      margin: 20px 0;
+      font-style: italic;
+      color: #3d2416;
+    }
+
+    @media (max-width: 900px) {
+      .card-container {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 2em;
+      }
+
+      main h2 {
+        font-size: 1.6em;
+      }
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      background-color: #6f4e37;
-      color: white;
-      margin-top: 40px;
+      padding: 30px 20px;
+      background-color: #fff;
+      color: #5a3a28;
+      margin-top: 60px;
+      border-top: 2px solid #ead9cd;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -78,44 +239,61 @@
   <nav>
     <a href="about.html">About</a>
     <a href="coffeespots.html">Coffee Spots</a>
-    <a href="index.html#food">Fort Worth Eats</a>
+    <a href="fortwortheats.html">Fort Worth Eats</a>
     <a href="localsguide.html">Locals Guide</a>
-    <a href="index.html#coffee-map">Coffee Map</a>
-    <a href="index.html#food-map">Food Map</a>
+    <a href="research.html">Research</a>
+    <a href="coffeemap.html">Coffee Map</a>
+    <a href="foodmap.html">Food Map</a>
   </nav>
 
   <main>
     <section>
       <h2>Coffee Spots</h2>
+      <div class="welcome-card">
+        <h3>Welcome ☕</h3>
+        <p>Hi again! This page will include my personal coffee spot reviews. From my overall favorite to the best study spots, affordable spots and tastiest coffee this includes it all! For TCU students scroll to the bottom to find the best spots closest to you! I was able to find these recommendations from social media platforms, reviews and word of mouth!</p>
+      </div>
       <div class="card-container">
         <div class="card">
-          <h3>Welcome</h3>
-          <p>Hi again! This page will include my personal coffee spot reviews. From my overall favorite to the best study spots, affordble spots and tastiest coffee this includes it all! For TCU students scroll to the bottom to find the best spots closest to you! I was able to find these reccommendations from social media platforms, reviews and word of mouth!</p>
+          <h3>Overall Favorite 🏆</h3>
+          <p>Carter's Coffee is the overall champ!</p>
+          <div class="highlight">
+            <strong>Why it's my top pick:</strong> Carter's includes both a drive through and inside space that serves as an incredible study spot. Carter's was originally a home turned into a coffee shop so the inside vibe is very home-like with multiple living rooms to sit down in. It also includes a front porch sunroom that has outdoor seating for nice weather days.
+          </div>
+          <p><strong>Convenience for TCU:</strong> A 4 minute drive and 20 minute walk.</p>
+          <div class="highlight">
+            <strong>Personal favorites:</strong> Iced Cinnamon Latte with Honey, Iced Blueberry Latte (Seasonal), Arnold Palmer (For non-coffee drinkers). Breakfast Burrito is a great bite to pair with your drink!
+          </div>
         </div>
         <div class="card">
-          <h3>Overall Favorite</h3>
-          <p>Carters coffee is the overall champ!</p>
-          <p>Carters is my top choice for coffee in Fort Worth specifically as a TCU Student. Carter's includes both a drive through and inside space that serves as an incredible study spot. Carters was originally a home turned into a coffee shop so the inside vibe is very home-like with multiple living rooms to sit down in. It also includes a front porch sunroom that has outdoor seating for nice weather days. For TCU students like me, it is a reasonably close spot: a 4 minute drive and 20 minute walk.</p>
-          <p>My personal favorites: Iced Cinnamon Latte with Honey, Iced Blueberry Latte (Seasonal), Arnold Palmer (For my non-coffee drinkers). And if you're looking a good bite to pair with your drink I reccomend the Breakfast Burrito!</p>
+          <h3>Best Study Spots 📚</h3>
+          <p>Top 3: Ampersand, Avoca, and Roy Pope</p>
+          <div class="highlight">
+            <strong>Ampersand:</strong> A great place for TCU students because it's on campus! Although it gets busy quick, tables are constantly opening up and they have lots of seating options. It's easy to squeeze in a study session between classes, and it's the coffee shop that is open the latest.
+          </div>
+          <div class="highlight">
+            <strong>Avoca:</strong> A drive away from TCU into the Magnolia District but a great spacious place to spread out and get work done or even meet for group projects. Almost never a wait for a table at this spot and free parking without having to pay!
+          </div>
+          <div class="highlight">
+            <strong>Roy Pope:</strong> The farthest of my favorite study spots from TCU but is so great if you have a car or if you are a Fort Worth local. Not only does this shop have great coffee, but serves breakfast, lunch and serves as a grocery store too. An overall very well-rounded spot to get work done with indoor and outdoor seating that is always available. The spot is in a very safe area and is only around a 15 minute drive away from campus.
+          </div>
         </div>
         <div class="card">
-          <h3>Best Study Spots</h3>
-          <p>Top 3: Ampersand, Avoca and Roy Pope!</p>
-          <p>Ampersand: A great place for TCU students becuase it is on campus! Although it gets busy quick, tables are constantly opening up and they have lots of seating options. It's easy to squeeze in a study session between classes, also being the coffee shop that is open the latest.</p>
-          <p>Avoca: A drive away from TCU into the Magnolia District but a great spacious place to spread out and get work done or even meet for group projects. Almost never a wait for a table at this spot and spots to park without having to pay!</p>
-          <p>Roy Pope: Roy Pope is the farthest of my favorite study spots from TCU but is so great if you have a car or if you are a Fort Worth local. Not only does this shop have great coffee, but serves breakfast, lunch and serves as a grocery store too. An overall very well rounded spot to get work done with indoor and outdoor seating that is always avaliable. The spot is in a very safe area and is only around a 15 minute drive away from campus.</p>
+          <h3>Most Affordable 💰</h3>
+          <p>Top 3 Budget-Friendly Options:</p>
+          <p style="font-size: 0.9em; color: #8b6b54;">Coming soon with detailed recommendations...</p>
         </div>
         <div class="card">
-          <h3>Most Affordable</h3>
-          <p>Top 3:</p>
+          <h3>Best Taste 😋</h3>
+          <p>Top 3: Cherry Coffee, Summer Moon, and Townes Coffee</p>
+          <p>These spots are recognized for their exceptional quality coffee and flavor profiles that stand out among Fort Worth's coffee scene.</p>
         </div>
         <div class="card">
-          <h3>Best Taste</h3>
-          <p>Top 3: Cherry Coffee, Summer Moon and Townes Coffee.</p>
-        </div>
-        <div class="card">
-          <h3>Overall Best Pick for TCU Students</h3>
+          <h3>Overall Best Pick for TCU Students 🎓</h3>
           <p>My Top Pick: Ampersand!</p>
+          <div class="highlight">
+            The perfect balance of convenience, quality, atmosphere, and accessibility for students on campus. Whether you need a quick coffee between classes or a dedicated study session, Ampersand delivers on all fronts.
+          </div>
         </div>
       </div>
     </section>
