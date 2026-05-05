@@ -103,12 +103,44 @@
       justify-content: center;
       padding: 20px;
       width: 100%;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255, 201, 154, 0.55), transparent 35%),
-        radial-gradient(circle at 80% 25%, rgba(255, 170, 165, 0.45), transparent 30%),
-        radial-gradient(circle at 70% 80%, rgba(255, 228, 184, 0.5), transparent 38%),
-        linear-gradient(135deg, #fff7ef 0%, #ffe9dc 45%, #ffe1cf 100%);
+      position: relative;
+      overflow: hidden;
       border-bottom: 1px solid #ead9cd;
+    }
+
+    .hero-collage {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      z-index: 0;
+    }
+
+    .hero-collage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(0.98) brightness(0.82);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 247, 239, 0.55) 0%, rgba(255, 233, 220, 0.72) 55%, rgba(255, 225, 207, 0.82) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+      padding: 28px 22px;
+      border-radius: 20px;
+      background: rgba(255, 250, 245, 0.32);
+      backdrop-filter: blur(3px);
+      box-shadow: 0 10px 28px rgba(90, 58, 40, 0.12);
     }
 
     .continue {
@@ -141,6 +173,14 @@
     @media (max-width: 600px) {
       .continue-grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero-collage {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-content {
+        padding: 22px 16px;
       }
     }
 
@@ -240,9 +280,30 @@
 
   <main>
     <section class="hero">
-      <h1>Sips & Bites of Fort Worth</h1>
-      <p>A curated guide to coffee and food in Fort Worth.</p>
-      <a class="about-button" href="about.html">About</a>
+      <div class="hero-collage" aria-hidden="true">
+        <img src="./assets/et1.jpg" alt="">
+        <img src="./assets/ps1.jpg" alt="">
+        <img src="./assets/pc1.jpg" alt="">
+        <img src="./assets/ca1.jpg" alt="">
+        <img src="./assets/et2.jpg" alt="">
+        <img src="./assets/ps2.jpg" alt="">
+        <img src="./assets/pc2.jpg" alt="">
+        <img src="./assets/ca2.jpg" alt="">
+        <img src="./assets/et3.jpg" alt="">
+        <img src="./assets/ps3.jpg" alt="">
+        <img src="./assets/pc3.jpg" alt="">
+        <img src="./assets/ca3.jpg" alt="">
+        <img src="./assets/et4.jpg" alt="">
+        <img src="./assets/ps4.jpg" alt="">
+        <img src="./assets/pc4.jpg" alt="">
+        <img src="./assets/ca4.jpg" alt="">
+      </div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-content">
+        <h1>Sips & Bites of Fort Worth</h1>
+        <p>A curated guide to coffee and food in Fort Worth.</p>
+        <a class="about-button" href="about.html">About</a>
+      </div>
     </section>
 
     <section class="continue" id="continue-here">

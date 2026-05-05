@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coffee Map | Sips & Bites of Fort Worth</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <style>
     * {
       box-sizing: border-box;
@@ -132,17 +133,104 @@
       50% { background-position: 100% center; }
     }
 
-    .card h3 {
-      margin-top: 0;
-      color: #5a3a28;
-      font-size: 1.5em;
-      font-weight: 700;
-      letter-spacing: 0.3px;
+    .map-card {
+      background-color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 15px rgba(90, 58, 40, 0.08);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 28px;
     }
 
-    .card p {
+    .map-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffaaa5, #ffcb9a, #ffe4b8, #ffaaa5);
+      background-size: 200% 100%;
+      animation: slideGradient 3s ease infinite;
+    }
+
+    .map-intro {
       line-height: 1.75;
-      font-size: 0.95em;
+      margin-bottom: 18px;
+      color: #5a3a28;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 18px 0 24px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #fff8f2, #ffece0);
+      border: 1px solid #efd9cb;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.9em;
+      color: #5a3a28;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffaaa5;
+      box-shadow: 0 0 0 4px rgba(255, 170, 165, 0.18);
+      flex: 0 0 auto;
+    }
+
+    #map {
+      height: 720px;
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid #ecdccf;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.65);
+      overflow: hidden;
+    }
+
+    .status {
+      margin-top: 16px;
+      font-style: italic;
+      color: #8b6b54;
+      line-height: 1.6;
+    }
+
+    .popup-card strong {
+      display: block;
+      font-size: 1.05em;
+      margin-bottom: 4px;
+    }
+
+    .popup-meta {
+      font-size: 0.85em;
+      color: #8b6b54;
+      margin-bottom: 10px;
+    }
+
+    .popup-card p {
+      margin: 0 0 10px;
+      line-height: 1.6;
+    }
+
+    .popup-card a {
+      color: #8a4f3d;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .popup-card a:hover {
+      text-decoration: underline;
     }
 
     footer {
@@ -175,17 +263,200 @@
   </nav>
 
   <main>
-    <section>
-      <h2>Coffee Map</h2>
-      <div class="card">
-        <p>Add your Mapbox coffee map here.</p>
-      </div>
-    </section>
+    <div class="map-card" style="padding:0; border-radius:0; box-shadow:none;">
+      <div class="map-intro" style="padding:12px 16px; text-align:center;">This is a map of coffee places in the Fort Worth area, combining places I've reviewed, locals reccomendations and spots I haven't tried.</div>
+      <div id="map" style="height:calc(100vh - 44px); width:100%;"></div>
+    </div>
   </main>
 
-  <footer>
-    <p>Created by Grace Allen</p>
-  </footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const coffeeSpots = [
+      {
+        place_name: 'Cherry Coffee Shop',
+        address: '1121 W Magnolia Ave, Fort Worth, TX 76104',
+        area: 'Magnolia / Near Southside',
+        coords: [32.7316, -97.3400],
+        blurb: 'Cherry feels like the spot for coffee that is a little more fun and unique. Their drinks have more personality than a basic coffee run, which makes it one of my top picks for taste.',
+        source_url: 'https://cherry-coffee.com/pages/visit-our-cafe'
+      },
+      {
+        place_name: 'Summer Moon Coffee',
+        address: '817 Matisse Dr #445, Fort Worth, TX 76107',
+        area: 'West 7th',
+        coords: [32.7490, -97.3920],
+        blurb: 'Summer Moon is perfect when you want coffee that feels rich, sweet, and a little more indulgent. The signature moon milk flavor makes it stand out from a regular latte.',
+        source_url: 'https://locations.summermooncoffee.com/locations/matisse-dr-forth-worth/'
+      },
+      {
+        place_name: 'Townes Coffee',
+        address: '4100 Bryant Irvin Rd, Fort Worth, TX 76109',
+        area: 'West Fort Worth',
+        coords: [32.6917, -97.4280],
+        blurb: 'Townes is a newer go-to that feels easy, clean, and reliable. It is the kind of place I would pick for a solid everyday coffee without overthinking it.',
+        source_url: 'https://joe.coffee/locations/tx/fort-worth/townes-quality-grinds-fort-worth/'
+      },
+      {
+        place_name: 'Common Grounds Ft. Worth',
+        address: '3110 Greene Ave, Fort Worth, TX 76109',
+        area: 'TCU Area',
+        coords: [32.7072, -97.3636],
+        blurb: 'Common Grounds is cozy, close to campus, and honestly one of the better study spots near TCU. It feels more relaxed than the usual crowded coffee run.',
+        source_url: 'https://joe.coffee/locations/tx/fort-worth/common-grounds-ft-worth-coffee-shop-fort-worth/'
+      },
+      {
+        place_name: 'Match Point Coffee',
+        address: '3618 W 7th St, Fort Worth, TX 76107',
+        area: 'West 7th',
+        coords: [32.7535, -97.3620],
+        blurb: 'Match Point is cute without feeling chaotic. It is a good pick when you want strong coffee, a calmer vibe, and a little break from the usual campus crowd.',
+        source_url: 'https://matchpointcoffee.com/contact/'
+      },
+      {
+        place_name: 'Fort Worth Coffee Co.',
+        address: '4731 Camp Bowie Blvd, Fort Worth, TX 76107',
+        area: 'Camp Bowie',
+        coords: [32.7358, -97.4015],
+        blurb: 'Fort Worth Coffee Co. keeps things simple in the best way. It is a reliable spot for a good coffee that does not feel like you are paying extra just for the aesthetic.',
+        source_url: 'https://www.fwcoffeeco.com/'
+      },
+      {
+        place_name: "Carter's Coffee",
+        address: '2736 Stanley Ave, Fort Worth, TX 76110',
+        area: 'TCU Area',
+        coords: [32.7082, -97.3692],
+        blurb: 'Carter\'s is a super convenient drive-through option near TCU. It is perfect when you want a local coffee run without making it a whole sit-down thing.',
+        source_url: 'https://www.fortworth.com/listing/carters-coffee/9444/'
+      },
+      {
+        place_name: 'Ampersand Coffee',
+        address: '3025 S University Dr, Fort Worth, TX 76109',
+        area: 'TCU Area',
+        coords: [32.7088, -97.3680],
+        blurb: 'Ampersand is the classic close-to-campus pick with a huge menu and fun drinks. It can get busy, but the convenience makes it hard to beat.',
+        source_url: 'https://www.ampersandtx.com/locations'
+      },
+      {
+        place_name: 'Sons Coffee',
+        address: '250 W Lancaster Ave #120, Fort Worth, TX 76102',
+        area: 'Downtown',
+        coords: [32.7529, -97.3273],
+        blurb: 'Sons is a good pick for cold brew and a cleaner, more minimal coffee shop vibe. It feels simple, cool, and not overdone.',
+        source_url: 'https://sonscoffee.com/pages/location'
+      },
+      {
+        place_name: 'Mamaka Bowls',
+        address: '1701 River Run, Fort Worth, TX 76107',
+        area: 'West 7th / River Run',
+        coords: [32.7505, -97.3830],
+        blurb: 'Mamaka is not a traditional coffee shop, but it is a fun option when you want something cute, fresh, and a little different from a normal latte stop.',
+        source_url: 'https://www.mamakabowls.com/locations'
+      },
+      {
+        place_name: 'Buon Giorno Coffee',
+        address: '500 W 7th St, Fort Worth, TX 76102',
+        area: 'Downtown',
+        coords: [32.7518, -97.3330],
+        blurb: 'Buon Giorno is a great affordable pick when you want a classic coffee shop feel. It is cozy, simple, and easy to recommend for a low-key coffee run.',
+        source_url: 'https://bgcoffee.net/pages/locations'
+      },
+      {
+        place_name: 'Race Street Coffee',
+        address: '3021 Race St, Fort Worth, TX 76111',
+        area: 'Race Street',
+        coords: [32.7760, -97.3150],
+        blurb: 'Race Street Coffee has more of a neighborhood feel, which makes it nice if you want something local and less trendy. It is a solid option for coffee without the campus crowd.',
+        source_url: 'https://www.racestreetcoffee.com/'
+      },
+      {
+        place_name: 'Coffee Folk',
+        address: '4147 Meadowbrook Dr, Fort Worth, TX 76103',
+        area: 'East Fort Worth',
+        coords: [32.7548, -97.2468],
+        blurb: 'Coffee Folk feels friendly and unfussy in the best way. It is a good pick for relaxed weekend coffee or grabbing something quick without the overdone cafe energy.',
+        source_url: 'https://www.fortworth.com/listing/coffee-folk/9443/'
+      },
+      {
+        place_name: 'Black Coffee',
+        address: '1417 Vaughn Blvd, Fort Worth, TX 76105',
+        area: 'East Fort Worth',
+        coords: [32.7408, -97.2612],
+        blurb: 'Black Coffee is a strong choice when you want something more straightforward and community-focused. It is not trying too hard, and that is part of the appeal.',
+        source_url: 'https://www.blackcoffeefw.com/'
+      },
+      {
+        place_name: 'Pax & Beneficia',
+        address: '5924 Convair Dr #400, Fort Worth, TX 76109',
+        area: 'Waterside',
+        coords: [32.6905, -97.4015],
+        blurb: 'Pax & Beneficia is a calmer, polished coffee option near Waterside. It is a good pick if you want something close to TCU but a little more peaceful.',
+        source_url: 'https://paxandbeneficia.com/pages/waterside'
+      },
+      {
+        place_name: 'Shake Smart TCU',
+        address: 'TCU Recreation Center, Fort Worth, TX 76109',
+        area: 'TCU Campus',
+        coords: [32.7060, -97.3645],
+        blurb: 'Shake Smart is not really a coffee shop, but it works for a super convenient campus drink stop. It is best for when you need something fast before or after class.',
+        source_url: 'https://shakesmart.com/store_locations/tcu/'
+      },
+      {
+        place_name: 'Starbucks',
+        address: 'Multiple Fort Worth locations',
+        area: 'Various',
+        coords: [32.7590, -97.3310],
+        blurb: 'Starbucks is not the most local option, but it is familiar, quick, and easy when you just need a consistent coffee order.',
+        source_url: 'https://www.starbucks.com/store-locator'
+      },
+      {
+        place_name: 'HustleBlendz Coffee',
+        address: '120 St Louis Ave #101, Fort Worth, TX 76104',
+        area: 'Near Southside',
+        coords: [32.7344, -97.3340],
+        blurb: 'HustleBlendz is a fun, affordable option with a local feel. It is a good add if you want your guide to include coffee spots that feel creative without being overpriced.',
+        source_url: 'https://www.hustleblendzcoffee.com/'
+      }
+    ];
 
+    const map = L.map('map', {
+      scrollWheelZoom: false
+    }).setView([32.7555, -97.3308], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const bounds = [];
+
+    function popupHtml(spot) {
+      return `
+        <div class="popup-card">
+          <strong>${spot.place_name}</strong>
+          <div class="popup-meta">${spot.area} • ${spot.address}</div>
+          <p>${spot.blurb}</p>
+          <a href="${spot.source_url}" target="_blank" rel="noopener noreferrer">Open source</a>
+        </div>
+      `;
+    }
+
+    coffeeSpots.forEach((spot) => {
+      L.circleMarker(spot.coords, {
+        radius: 8,
+        color: '#5a3a28',
+        weight: 2,
+        fillColor: '#ffaaa5',
+        fillOpacity: 0.95
+      })
+        .addTo(map)
+        .bindPopup(popupHtml(spot), { maxWidth: 320 });
+
+      bounds.push(spot.coords);
+    });
+
+    if (bounds.length > 0) {
+      map.fitBounds(bounds, { padding: [35, 35] });
+    }
+  </script>
 </body>
 </html>

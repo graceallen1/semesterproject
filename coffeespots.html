@@ -194,6 +194,35 @@
       margin-bottom: 20px;
     }
 
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .thumb-grid img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ead9cd;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .highlight {
       background: linear-gradient(135deg, rgba(255, 170, 165, 0.15), rgba(255, 228, 184, 0.15));
       padding: 16px;
@@ -254,17 +283,31 @@
         <p>Hi again! This page will include my personal coffee spot reviews. From my overall favorite to the best study spots, affordable spots and tastiest coffee this includes it all! For TCU students scroll to the bottom to find the best spots closest to you! I was able to find these recommendations from social media platforms, reviews and word of mouth!</p>
       </div>
       <div class="card-container">
-        <div class="card">
-          <h3>Overall Favorite 🏆</h3>
-          <p>Carter's Coffee is the overall champ!</p>
-          <div class="highlight">
-            <strong>Why it's my top pick:</strong> Carter's includes both a drive through and inside space that serves as an incredible study spot. Carter's was originally a home turned into a coffee shop so the inside vibe is very home-like with multiple living rooms to sit down in. It also includes a front porch sunroom that has outdoor seating for nice weather days.
+        <div class="two-col">
+          <div class="card">
+            <h3>Overall Favorite 🏆</h3>
+            <p>Carter's Coffee is the overall champ!</p>
+            <div class="highlight">
+              <strong>Why it's my top pick:</strong> Carter's includes both a drive through and inside space that serves as an incredible study spot. Carter's was originally a home turned into a coffee shop so the inside vibe is very home-like with multiple living rooms to sit down in. It also includes a front porch sunroom that has outdoor seating for nice weather days.
+            </div>
+            <p><strong>Convenience for TCU:</strong> A 4 minute drive and 20 minute walk.</p>
+            <div class="highlight">
+              <strong>Personal favorites:</strong> Iced Cinnamon Latte with Honey, Iced Blueberry Latte (Seasonal), Arnold Palmer (For non-coffee drinkers). Breakfast Burrito is a great bite to pair with your drink!
+            </div>
           </div>
-          <p><strong>Convenience for TCU:</strong> A 4 minute drive and 20 minute walk.</p>
-          <div class="highlight">
-            <strong>Personal favorites:</strong> Iced Cinnamon Latte with Honey, Iced Blueberry Latte (Seasonal), Arnold Palmer (For non-coffee drinkers). Breakfast Burrito is a great bite to pair with your drink!
+
+          <div class="card">
+            <h3>Photos</h3>
+            <p style="margin-top:0; color:#8b6b54;">A few photos from Carter's Coffee</p>
+            <div class="thumb-grid" style="margin-top:12px;">
+              <img src="./assets/ca1.jpg" alt="Carter's Coffee photo 1">
+              <img src="./assets/ca2.jpg" alt="Carter's Coffee photo 2">
+              <img src="./assets/ca3.jpg" alt="Carter's Coffee photo 3">
+              <img src="./assets/ca4.jpg" alt="Carter's Coffee photo 4">
+            </div>
           </div>
         </div>
+
         <div class="card">
           <h3>Best Study Spots 📚</h3>
           <p>Top 3: Ampersand, Avoca, and Roy Pope</p>
@@ -280,19 +323,55 @@
         </div>
         <div class="card">
           <h3>Most Affordable 💰</h3>
-          <p>Top 3 Budget-Friendly Options:</p>
-          <p style="font-size: 0.9em; color: #8b6b54;">Coming soon with detailed recommendations...</p>
+          <p>Top 3 Budget-Friendly Options: Common Grounds, Match Point Coffee, and Fort Worth Coffee Co.</p>
+          <div class="highlight">
+            <strong>Common Grounds:</strong> Common Grounds is one of those spots that feels like a hidden gem near TCU. It’s super cozy, a little more low key than the usual places, and honestly way better for studying without feeling chaotic or overpriced.
+          </div>
+          <div class="highlight">
+            <strong>Match Point Coffee:</strong> Match Point Coffee is perfect when you want something cute but not packed. The coffee is actually really good, and it has that calmer, aesthetic vibe that makes you want to stay a while.
+          </div>
+          <div class="highlight">
+            <strong>Fort Worth Coffee Co.:</strong> Fort Worth Coffee Co. is more simple and classic, but in a good way. It’s one of those places you go when you just want a solid coffee that tastes good and doesn’t feel like you’re overpaying for it.
+          </div>
         </div>
         <div class="card">
           <h3>Best Taste 😋</h3>
-          <p>Top 3: Cherry Coffee, Summer Moon, and Townes Coffee</p>
-          <p>These spots are recognized for their exceptional quality coffee and flavor profiles that stand out among Fort Worth's coffee scene.</p>
+          <p>Top 3: Cherry Coffee Shop, Summer Moon Coffee, and Townes Coffee.</p>
+          <div class="highlight">
+            <strong>Cherry Coffee Shop:</strong> Cherry Coffee Shop stands out for its unique, slightly elevated flavors that feel different from your typical coffee run, making it a go-to when you want something a little more fun and memorable.
+          </div>
+          <div class="highlight">
+            <strong>Summer Moon Coffee:</strong> Summer Moon Coffee is known for its signature sweet cream and smooth taste, perfect if you like your coffee a little richer and love having a variety of flavors to choose from.
+          </div>
+          <div class="highlight">
+            <strong>Townes Coffee:</strong> Townes Coffee keeps it simple but does it really well, with consistently smooth and balanced drinks that make it an easy everyday favorite.
+          </div>
         </div>
         <div class="card">
           <h3>Overall Best Pick for TCU Students 🎓</h3>
           <p>My Top Pick: Ampersand!</p>
           <div class="highlight">
             The perfect balance of convenience, quality, atmosphere, and accessibility for students on campus. Whether you need a quick coffee between classes or a dedicated study session, Ampersand delivers on all fronts.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>My instagram account: Gracescoffeefortworth</h3>
+          <p><a href="https://www.instagram.com/gracescoffeeftw?igsh=MWN1ZWQyNnd5emV3Mw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Visit @gracescoffeeftw on Instagram</a></p>
+          <div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap; margin-top:12px;">
+            <div id="insta-embed" style="flex:0 0 360px; width:360px; max-width:100%; border-radius:8px; overflow:hidden; border:1px solid #ead9cd; background:#fff8f0; padding:12px;">
+              <iframe
+                src="https://www.instagram.com/gracescoffeeftw/embed/"
+                title="Grace's Coffee FTW Instagram"
+                style="width:100%; height:540px; border:0;"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin">
+              </iframe>
+            </div>
+
+            <div style="flex:1 1 300px; min-width:260px;">
+              <p class="highlight" contenteditable="true" style="margin-top:0; min-height:220px;">Hi guys! I loved reviewing coffee so much I even reviewed coffee for another class project, if you want to see more reviews or hear me explain some of these spots check out this instagram page!</p>
+            </div>
           </div>
         </div>
       </div>

@@ -181,6 +181,34 @@
       box-shadow: 0 8px 20px rgba(90, 58, 40, 0.12);
     }
 
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .thumb-grid img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ead9cd;
+      display: block;
+    }
+
     .welcome-card h3 {
       color: #5a3a28;
       font-size: 1.8em;
@@ -221,49 +249,88 @@
         <p>Hi again! This page will include my personal favorite spots to get food in Fort Worth. Breakfast, lunch and dinner I have chosen my favorites and I also included runner ups! For TCU students scroll to the bottom to find the best spots closest to you! I was able to find these recommendations from social media platforms, reviews and word of mouth!</p>
       </div>
       
-      <div class="card">
-        <h3>Best Breakfast Spot 🥐</h3>
-        <p><strong>Press Cafe</strong></p>
-        <div class="highlight">
-          <strong>Why it's my top pick:</strong> The atmosphere is unbeatable with great indoor and outdoor seating and an incredible menu. It's my go-to for when I have guests in town and can be a great spot for people to take photos as well if they are visiting from out of town.
+      <div class="two-col">
+        <div class="card">
+          <h3>Best Breakfast Spot 🥐</h3>
+          <p><strong>Press Cafe</strong></p>
+          <div class="highlight">
+            <strong>Why it's my top pick:</strong> The atmosphere is unbeatable with great indoor and outdoor seating and an incredible menu. It's my go-to for when I have guests in town and can be a great spot for people to take photos as well if they are visiting from out of town.
+          </div>
+          <p><strong>Location:</strong> Across from the Clearfork area, it's easy to walk over and shop around after breakfast.</p>
+          <div class="highlight">
+            <strong>Personal favorite orders:</strong> Stuffed French toast, egg in a hole, and the breakfast sandwich!
+          </div>
         </div>
-        <p><strong>Location:</strong> Across from the Clearfork area, it's easy to walk over and shop around after breakfast.</p>
-        <div class="highlight">
-          <strong>Personal favorite orders:</strong> Stuffed French toast, egg in a hole, and the breakfast sandwich!
+
+        <div class="card">
+          <h3>Photos</h3>
+          <p style="margin-top:0; color:#8b6b54;">A few photos from Press Cafe</p>
+          <div class="thumb-grid" style="margin-top:12px;">
+            <img src="./assets/pc1.jpg" alt="Press Cafe photo 1">
+            <img src="./assets/pc2.jpg" alt="Press Cafe photo 2">
+            <img src="./assets/pc3.jpg" alt="Press Cafe photo 3">
+            <img src="./assets/pc4.jpg" alt="Press Cafe photo 4">
+          </div>
         </div>
       </div>
 
-      <div class="card">
-        <h3>Best Lunch Spot 🥗</h3>
-        <p><strong>Eatzi's Market & Bakery</strong></p>
-        <div class="highlight">
-          <strong>Why it's my go-to:</strong> The variety of what you can get there is never ending. Over the past four years, I've tried everything from salads, sandwiches, wraps, pastas, and meals from the hot bar.
+      <div class="two-col">
+        <div class="card">
+          <h3>Best Lunch Spot 🥗</h3>
+          <p><strong>Eatzi's Market & Bakery</strong></p>
+          <div class="highlight">
+            <strong>Why it's my go-to:</strong> The variety of what you can get there is never ending. Over the past four years, I've tried everything from salads, sandwiches, wraps, pastas, and meals from the hot bar.
+          </div>
+          <p><strong>Atmosphere:</strong> It's such a casual place and you can take it to go or dine in on their outdoor patio!</p>
+          <div class="highlight">
+            <strong>Personal favorite orders:</strong> Custom sandwich, custom salad, and chicken cesear salad wrap.
+          </div>
+          <p><strong>Honorable mention:</strong> They have an amazing Arnold Palmer.</p>
         </div>
-        <p><strong>Atmosphere:</strong> It's such a casual place and you can take it to go or dine in on their outdoor patio!</p>
-        <div class="highlight">
-          <strong>Personal favorite orders:</strong> Custom sandwich, custom salad, and chicken cesear salad wrap.
+
+        <div class="card">
+          <h3>Photos</h3>
+          <p style="margin-top:0; color:#8b6b54;">A few photos from Eatzi's</p>
+          <div class="thumb-grid" style="margin-top:12px;">
+            <img src="./assets/et1.jpg" alt="Eatzi's photo 1">
+            <img src="./assets/et2.jpg" alt="Eatzi's photo 2">
+            <img src="./assets/et3.jpg" alt="Eatzi's photo 3">
+            <img src="./assets/et4.jpg" alt="Eatzi's photo 4">
+          </div>
         </div>
-        <p><strong>Honorable mention:</strong> They have an amazing Arnold Palmer.</p>
       </div>
 
-      <div class="card">
-        <h3>Best Dinner Spot 🍽️</h3>
-        <p><strong>Paloma Suerte</strong></p>
-        <div class="highlight">
-          <strong>Why it's my top pick:</strong> The location is so amazing in the Stockyards. I would by far recommend this to anyone visiting from out of town and anyone in the area who hasn't tried it yet.
+      <div class="two-col">
+        <div class="card">
+          <h3>Best Dinner Spot 🍽️</h3>
+          <p><strong>Paloma Suerte</strong></p>
+          <div class="highlight">
+            <strong>Why it's my top pick:</strong> The location is so amazing in the Stockyards. I would by far recommend this to anyone visiting from out of town and anyone in the area who hasn't tried it yet.
+          </div>
+          <p><strong>Why it stands out:</strong> It's great Mexican food and they have great cocktail options too for 21+ guests. The Stockyards is the most iconic area in Fort Worth and Paloma Suerte makes it an even better destination.</p>
+          <div class="highlight">
+            <strong>Personal favorites:</strong> The Best Birria Tacos with Beef Short Rib, Queso de la Casa, and the Crab Stuffed Gulf Shrimp.
+          </div>
+          <p><strong>Drink recommendation:</strong> For those 21+, try the Palomacello Spritz.</p>
         </div>
-        <p><strong>Why it stands out:</strong> It's great Mexican food and they have great cocktail options too for 21+ guests. The Stockyards is the most iconic area in Fort Worth and Paloma Suerte makes it an even better destination.</p>
-        <div class="highlight">
-          <strong>Personal favorites:</strong> The Best Birria Tacos with Beef Short Rib, Queso de la Casa, and the Crab Stuffed Gulf Shrimp.
+
+        <div class="card">
+          <h3>Photos</h3>
+          <p style="margin-top:0; color:#8b6b54;">A few photos from Paloma Suerte</p>
+          <div class="thumb-grid" style="margin-top:12px;">
+            <img src="./assets/ps1.jpg" alt="Paloma Suerte photo 1">
+            <img src="./assets/ps2.jpg" alt="Paloma Suerte photo 2">
+            <img src="./assets/ps3.jpg" alt="Paloma Suerte photo 3">
+            <img src="./assets/ps4.jpg" alt="Paloma Suerte photo 4">
+          </div>
         </div>
-        <p><strong>Drink recommendation:</strong> For those 21+, try the Palomacello Spritz.</p>
       </div>
 
       <div class="card">
         <h3>Honorable Mentions ⭐</h3>
         <p><strong>Breakfast:</strong> Ascension, Snooze AM Eatery, and The Social House.</p>
         <p><strong>Lunch:</strong> Woodshed Smokehouse, Maggies R&R, and HG Supply.</p>
-        <p><strong>Dinner:</strong> Lucille's, Hudson House, and Doc B's.</p>
+        <p><strong>Dinner:</strong> Lucille's, Hudson House, Doc B's, and Blue Sushi Sake Grill.</p>
       </div>
 
       <div class="card">

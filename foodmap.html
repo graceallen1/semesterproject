@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Food Map | Sips & Bites of Fort Worth</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
     * {
       box-sizing: border-box;
@@ -158,34 +159,96 @@
 </head>
 <body>
 
-  <header>
-    <h1>Sips & Bites of Fort Worth</h1>
-    <p>Food Map</p>
-  </header>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="coffeespots.html">Coffee Spots</a>
-    <a href="fortwortheats.html">Fort Worth Eats</a>
-    <a href="localsguide.html">Locals Guide</a>
-    <a href="research.html">Research</a>
-    <a href="coffeemap.html">Coffee Map</a>
-    <a href="foodmap.html">Food Map</a>
-  </nav>
-
   <main>
-    <section>
-      <h2>Food Map</h2>
-      <div class="card">
-        <p>Add your Mapbox food map here.</p>
-      </div>
-    </section>
+    <div style="margin:0;">
+      <div style="padding:12px 16px; text-align:center; background:#fffaf6; border-bottom:1px solid #ead9cd;">This is a map of resteraunts  in the Fort Worth area, combining places I've reviewed, locals reccomendations and spots I haven't tried.</div>
+      <div id="map" style="height:calc(100vh - 44px); width:100%;"></div>
+    </div>
   </main>
 
-  <footer>
-    <p>Created by Grace Allen</p>
-  </footer>
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    // Restaurant data from provided CSV
+    const restaurantSpots = [
+      { place_name: 'Press Cafe', address: '4801 Edwards Ranch Rd, Fort Worth, TX', blurb: 'A go to brunch spot with amazing indoor and outdoor seating and a menu that never misses.' },
+      { place_name: "Eatzi's Market & Bakery", address: '1540 S University Dr, Fort Worth, TX', blurb: 'Perfect for quick, grab and go meals with endless options that are actually good.' },
+      { place_name: 'Paloma Suerte', address: '122 E Exchange Ave, Fort Worth, TX', blurb: 'One of the best dinner spots in the Stockyards with great Mexican food and a fun atmosphere.' },
+      { place_name: 'Hudson House', address: '4600 Dexter Ave, Fort Worth, TX', blurb: 'A reliable dinner spot with a cool vibe and consistently amazing food.' },
+      { place_name: 'Woodshed Smokehouse', address: '3201 Riverfront Dr, Fort Worth, TX', blurb: 'A casual spot with live music, good drinks, and a great outdoor atmosphere.' },
+      { place_name: 'Quince Riverside', address: '1701 River Run, Fort Worth, TX', blurb: 'A trendier, aesthetic spot that’s perfect for a nicer night out.' },
+      { place_name: "Joe T. Garcia's", address: '2201 N Commerce St, Fort Worth, TX', blurb: 'A Fort Worth classic known for its patio and iconic Tex Mex experience.' },
+      { place_name: 'Heim Barbecue', address: '1109 W Magnolia Ave, Fort Worth, TX', blurb: 'A go to for some of the best barbecue in Fort Worth.' },
+      { place_name: 'Local Foods', address: '1617 Park Place Ave, Fort Worth, TX', blurb: 'A great option when you want something quick, healthy, and still really good.' },
+      { place_name: 'Pacific Table', address: '1600 S University Dr, Fort Worth, TX', blurb: 'A consistent favorite for dinner with a strong menu and great atmosphere.' },
+      { place_name: "Maggie's R&R", address: '212 S Main St, Fort Worth, TX', blurb: 'A fun, casual spot that’s great for going out and grabbing food with friends.' },
+      { place_name: 'HG Sply Co.', address: '1621 River Run, Fort Worth, TX', blurb: 'A trendy spot with a lively atmosphere and good food for groups.' },
+      { place_name: 'Coco Shrimp', address: '3000 Crockett St, Fort Worth, TX', blurb: 'A casual and unique spot known for flavorful shrimp dishes.' },
+      { place_name: 'Oishii Sushi', address: '2700 W 7th St, Fort Worth, TX', blurb: 'A go to for sushi that’s consistently fresh and really good.' },
+      { place_name: 'Pie Tap Pizza Workshop + Bar', address: '2400 W 7th St, Fort Worth, TX', blurb: 'A brunch and dinner favorite, especially for their breakfast sandwich.' },
+      { place_name: 'Bricks and Horses', address: 'Fort Worth, TX', blurb: 'A more upscale dining option with a great atmosphere for visitors.' },
+      { place_name: 'Hotel Drover Restaurant', address: '200 Mule Alley Dr, Fort Worth, TX', blurb: 'A full experience spot in the Stockyards with great food and ambiance.' },
+      { place_name: "Lucile’s", address: '4700 Camp Bowie Blvd, Fort Worth, TX', blurb: 'A classic dinner spot with a cozy and reliable feel.' },
+      { place_name: "Doc B's", address: '5252 Monahans Ave, Fort Worth, TX', blurb: 'A popular spot with a wide menu and something for everyone.' }
+    ];
 
+    const map = L.map('map', { scrollWheelZoom: false }).setView([32.7555, -97.3308], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+
+    function popupHtml(spot) {
+      return `
+        <div class="popup-card">
+          <strong>${spot.place_name}</strong>
+          <div class="popup-meta">${spot.address}</div>
+          <p>${spot.blurb}</p>
+        </div>
+      `;
+    }
+
+    // Geocode with Nominatim, but cache results in localStorage to avoid repeated queries
+    async function geocodeAddress(addr) {
+      const key = 'geocode:' + addr;
+      try {
+        const cached = localStorage.getItem(key);
+        if (cached) return JSON.parse(cached);
+      } catch (e) {}
+
+      const q = encodeURIComponent(addr + ', Fort Worth, TX');
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${q}&limit=1`;
+      try {
+        const res = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+        if (!res.ok) return null;
+        const data = await res.json();
+        if (data && data[0]) {
+          const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+          try { localStorage.setItem(key, JSON.stringify(coords)); } catch(e) {}
+          return coords;
+        }
+      } catch (e) {
+        return null;
+      }
+      return null;
+    }
+
+    // Process the restaurant list sequentially to be polite to the geocoding service
+    (async function loadAndPlace() {
+      const bounds = [];
+      for (let i = 0; i < restaurantSpots.length; i++) {
+        const spot = restaurantSpots[i];
+        const coords = await geocodeAddress(spot.address);
+        if (coords) {
+          L.circleMarker(coords, { radius: 8, color: '#5a3a28', weight: 2, fillColor: '#ffd699', fillOpacity: 0.95 })
+            .addTo(map)
+            .bindPopup(popupHtml(spot), { maxWidth: 320 });
+          bounds.push(coords);
+        }
+        // polite pause to avoid quick-fire requests
+        await new Promise(r => setTimeout(r, 350));
+      }
+      if (bounds.length > 0) {
+        map.fitBounds(bounds, { padding: [35, 35] });
+      }
+    })();
+  </script>
 </body>
 </html>
